@@ -56,10 +56,12 @@ def send_whatsapp_message(text: str):
     }
 
     resp = requests.post(url, headers=headers, json=payload, timeout=15)
+    print("🔍 Réponse WhatsApp:", resp.status_code, resp.text)
     if resp.status_code >= 400:
         print("❌ Erreur WhatsApp:", resp.status_code, resp.text)
     else:
         print("✅ Alerte envoyée sur WhatsApp.")
+
 
 
 def main():
