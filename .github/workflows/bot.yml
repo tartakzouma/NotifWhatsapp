@@ -1,0 +1,35 @@
+name: BVC WhatsApp Bot
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"   # toutes les 5 minutes
+  workflow_dispatch: {}
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run bot
+        env:
+          CASA_API_BASE: ${{ secrets.CASA_API_BASE }}
+          VAR_THRESHOLD_UP: ${{ secrets.VAR_THRESHOLD_UP }}
+          VAR_THRESHOLD_DOWN: ${{ secrets.VAR_THRESHOLD_DOWN }}
+          WHATSAPP_TOKEN: ${{ secrets.WHATSAPP_TOKEN }}
+          WHATSAPP_PHONE_ID: ${{ secrets.WHATSAPP_PHONE_ID }}
+          WHATSAPP_TO: ${{ secrets.WHATSAPP_TO }}
+        run: |
+          python bot.py
