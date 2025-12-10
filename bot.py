@@ -63,26 +63,9 @@ def send_whatsapp_message(text: str):
 
 
 def main():
-    print("🔄 Lancement du bot BVC...")
-    try:
-        stocks = fetch_all_stocks()
-    except Exception as e:
-        print("❌ Erreur API BVC:", e)
-        return
+    print("🔄 Test WhatsApp direct...")
+    send_whatsapp_message("👋 Test depuis GitHub Actions : si tu vois ce message, la connexion WhatsApp Cloud API fonctionne ✅")
 
-    alerts = build_alerts(stocks)
-    if not alerts:
-        print("ℹ️ Aucune alerte.")
-        return
-
-    now = datetime.now(timezone.utc).astimezone().strftime('%Y-%m-%d %H:%M')
-    msg_lines = [f"📈 Alertes Bourse de Casablanca\n🕒 {now}\n"]
-
-    for a in alerts:
-        icon = "🚀" if a["change"] > 0 else "📉"
-        msg_lines.append(f"{icon} {a['symbol']} : {a['change']:.2f}%")
-
-    send_whatsapp_message("\n".join(msg_lines))
 
 
 if __name__ == "__main__":
