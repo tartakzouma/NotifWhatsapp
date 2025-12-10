@@ -3,8 +3,9 @@ import requests
 from datetime import datetime, timezone
 
 CASA_API_BASE = os.getenv("CASA_API_BASE", "https://casablanca-bourse-api.onrender.com")
-VAR_THRESHOLD_UP = float(os.getenv("VAR_THRESHOLD_UP", "2.0"))
-VAR_THRESHOLD_DOWN = float(os.getenv("VAR_THRESHOLD_DOWN", "-2.0"))
+VAR_THRESHOLD_UP = float(os.getenv("VAR_THRESHOLD_UP") or "2.0")
+VAR_THRESHOLD_DOWN = float(os.getenv("VAR_THRESHOLD_DOWN") or "-2.0")
+
 
 WHATSAPP_TOKEN = os.getenv("WHATSAPP_TOKEN")
 WHATSAPP_PHONE_ID = os.getenv("WHATSAPP_PHONE_ID")
